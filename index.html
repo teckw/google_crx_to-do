@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+	I am very busy.
+	</title>
+	
+	<script type="text/javascript" src="lib/jquery/jquery-2.2.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/jss/bootstrap.min.js">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	
+	<script src="app/controller.js"></script>
+	<script src="app/background.js"></script>
+
+	<link rel="stylesheet" href="styles.css">
+	<link rel="icon" type="image/png" href="icon.png">
+	
+</head>
+	<div class="wrapper">
+		<body ng-app="mainApp" ng-controller="app">
+			<div id="time">
+				<h1>{{date | date: 'hh:mm'}}</h1>
+				<h4>{{date | date:'MM-dd-yyyy'}}</h4>
+			</div>
+
+			<div class="well">
+				<h3 id="greetmsg">{{greetMessage}}</h3>
+				<h2 style="text-align:center;">What's on your agenda?</h2>
+				<input ng-model="task" ng-keyup="searchEnter()" type="text" style="display:block; margin:0 auto;padding:5px;font-size:15px;width:300px;">
+			
+				<div id="taskToShow">
+					<ul>
+						<li ng-repeat="oneTask in tasks track by $index">
+							<input type="checkbox" ng-model="oneTask.status">
+							<span contentEditable="false" ng-dblclick="contentEdit(oneTask.taskMessage)" ng-keydown="enterAgain(oneTask.taskMessage)" ng-model="oneTask.taskMessage" class="done-{{oneTask.status}}">
+							{{oneTask.taskMessage}} <span id="added">Added: {{oneTask.time | date: 'EEEE, MM/dd/yyyy'}}<span>
+							<button ng-click="removeTask($index)">Done!</button>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="push"></div>
+	</div>
+
+	<div class="footer">
+		<p>I am very busy. The to-do app for busy people.</p>
+	</div>
+	</body>
+</html>
